@@ -1,5 +1,9 @@
 import React from 'react'
+import { Text } from 'react-native'
+import Estilo from './estilos'
 
-import {Text} from 'react-native'
 
-export default props => <Text>Primeiro componete {props.texto}</Text>
+export default props => {
+    // console.warn('Opa!')
+    return <Text style={Estilo.ex}>Primeiro componete {props.texto}</Text>
+}
