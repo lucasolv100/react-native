@@ -14,7 +14,14 @@ import { View, StyleSheet, SafeAreaView } from 'react-native'
 // import ParImpar from './src/components/ParImpar'
 // import Familia from './src/components/relacao/Familia'
 // import Membro from './src/components/relacao/Membro'
-import Usuario from './src/components/UsuarioLogado'
+// import Usuario from './src/components/UsuarioLogado'
+// import ListaProdutos from './src/components/produtos/ListaProdutos'
+// import ListaProdutos from './src/components/produtos/ListaProdutosV2'
+// import DigiteSeuNome from './src/components/DigiteSeuNome'
+// import Quadrado from './src/components/layout/Quadrado'
+// import FlexBoxV1 from './src/components/layout/FlexBoxV1'
+// import FlexBoxV2 from './src/components/layout/FlexBoxV2'
+import FlexBoxV3 from './src/components/layout/FlexBoxV3'
 
 const usu = {
   nome: 'Teste',
@@ -23,7 +30,11 @@ const usu = {
 
 export default () => (
   <SafeAreaView style={style.App}>
-    <Usuario />
+    <FlexBoxV3 />
+    {/* <FlexBoxV1 /> */}
+    {/* <DigiteSeuNome /> */}
+    {/* <ListaProdutos /> */}
+    {/* <Usuario /> */}
     {/* <Familia sobrenome="Souza">
       <Membro nome="Lucas" />
       <Membro nome="João" />
