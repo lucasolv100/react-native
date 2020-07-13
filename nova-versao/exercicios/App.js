@@ -21,7 +21,9 @@ import { View, StyleSheet, SafeAreaView } from 'react-native'
 // import Quadrado from './src/components/layout/Quadrado'
 // import FlexBoxV1 from './src/components/layout/FlexBoxV1'
 // import FlexBoxV2 from './src/components/layout/FlexBoxV2'
-import FlexBoxV3 from './src/components/layout/FlexBoxV3'
+// import FlexBoxV3 from './src/components/layout/FlexBoxV3'
+// import FlexBoxV4 from './src/components/layout/FlexBoxV4'
+import Mega from './src/components/mega/Mega'
 
 const usu = {
   nome: 'Teste',
@@ -30,7 +32,9 @@ const usu = {
 
 export default () => (
   <SafeAreaView style={style.App}>
-    <FlexBoxV3 />
+    <Mega qtdNum={7} />
+    {/* <FlexBoxV4 /> */}
+    {/* <FlexBoxV3 /> */}
     {/* <FlexBoxV1 /> */}
     {/* <DigiteSeuNome /> */}
     {/* <ListaProdutos /> */}
