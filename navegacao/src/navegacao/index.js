@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import Stack from './Stack'
 import Drawer from './Drawer'
+import Tab from './Tab'
 
 
 export default props => {
@@ -11,9 +12,9 @@ export default props => {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <NavigationContainer>
-                
+                <Tab />
                 {/* <Stack /> */}
-                <Drawer />
+                {/* <Drawer /> */}
             </NavigationContainer>
         </SafeAreaView>
     )

@@ -7,7 +7,7 @@ export default props => {
             <View style={{flexDirection: 'row', backgroundColor: '#000', justifyContent: 'space-around'}}>
                 {props.avancar ? 
                     <Button title='Avançar'
-                        onPress={() => props.navigation.navigate(props.avancar)}
+                        onPress={() => props.navigation.push(props.avancar, {numero: parseInt(Math.random() * 100)})}
                     />
                     : false
                 }
