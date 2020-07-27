@@ -15,7 +15,7 @@ export default class TaskList extends Component {
 
 	state = {
 		showDoneTasks: true,
-		showAddTask: true,
+		showAddTask: false,
 		visibleTasks: [],
 		tasks: [
 			{
@@ -87,6 +87,13 @@ export default class TaskList extends Component {
 						keyExtractor={item => `${item.id}`}
 						renderItem={({ item }) => <Task {...item} toggleTask={this.toggleTask} />} />
 				</View>
+				<TouchableOpacity 
+				style={styles.addButton}
+				onPress={() => this.setState({ showAddTask: true })}
+				activeOpacity={0.7}
+				>
+					<Icon name='plus' size={20} color={commomStyles.colors.secondary} />
+				</TouchableOpacity>
 			</SafeAreaView>
 		)
 	}
@@ -125,5 +132,16 @@ const styles = StyleSheet.create({
 		justifyContent: 'flex-end',
 		marginRight: 20,
 		marginTop: 20
+	},
+	addButton: {
+		position: 'absolute',
+		right: 30,
+		bottom: 30,
+		width: 50,
+		height: 50,
+		borderRadius: 25,
+		backgroundColor: commomStyles.colors.today,
+		justifyContent: "center",
+		alignItems: "center"
 	}
 })
