@@ -1,5 +1,15 @@
 import React, { Component } from 'react'
-import { View, Text, ImageBackground, StyleSheet, FlatList, TouchableOpacity, Platform, SafeAreaView } from 'react-native'
+import {
+	View,
+	Text,
+	ImageBackground,
+	StyleSheet,
+	FlatList,
+	TouchableOpacity,
+	Platform,
+	SafeAreaView,
+	Alert
+} from 'react-native'
 
 import todayImage from '../../assets/imgs/today.jpg'
 import commomStyles from '../commonStyles'
@@ -65,11 +75,28 @@ export default class TaskList extends Component {
 		this.setState({ tasks }, this.filterTasks)
 	}
 
+	addTask = newTask => {
+		if (!newTask.desc && !newTask.desc.trim()) {
+			Alert.alert('Dados inválidos', 'Descrição não informada')
+			return
+		}
+
+		const tasks = [...this.state.tasks]
+		tasks.push({
+			id: Math.random(),
+			desc: newTask.desc,
+			estimateAt: newTask.date,
+			doneAt: null
+		})
+
+		this.setState({ tasks, showAddTask: false }, this.filterTasks)
+	}
+
 	render() {
 		const today = moment().locale('pt-br').format('ddd, D [de] MMMM');
 		return (
 			<SafeAreaView style={styles.container}>
-				<AddTask isVisible={this.state.showAddTask} onCancel={() => this.setState({ showAddTask: false })} />
+				<AddTask isVisible={this.state.showAddTask} onCancel={() => this.setState({ showAddTask: false })} onSave={this.addTask} />
 				<ImageBackground style={styles.bg} source={todayImage}>
 					<View style={styles.iconBar}>
 						<TouchableOpacity onPress={this.toggleFilter}>
@@ -87,10 +114,10 @@ export default class TaskList extends Component {
 						keyExtractor={item => `${item.id}`}
 						renderItem={({ item }) => <Task {...item} toggleTask={this.toggleTask} />} />
 				</View>
-				<TouchableOpacity 
-				style={styles.addButton}
-				onPress={() => this.setState({ showAddTask: true })}
-				activeOpacity={0.7}
+				<TouchableOpacity
+					style={styles.addButton}
+					onPress={() => this.setState({ showAddTask: true })}
+					activeOpacity={0.7}
 				>
 					<Icon name='plus' size={20} color={commomStyles.colors.secondary} />
 				</TouchableOpacity>
