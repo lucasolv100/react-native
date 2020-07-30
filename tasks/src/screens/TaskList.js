@@ -10,6 +10,7 @@ import {
 	SafeAreaView,
 	Alert
 } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 
 import todayImage from '../../assets/imgs/today.jpg'
 import commomStyles from '../commonStyles'
@@ -21,30 +22,21 @@ import 'moment/locale/pt-br'
 import Task from '../components/Task'
 import AddTask from './AddTask'
 
+const initialState = {
+	showDoneTasks: true,
+	showAddTask: false,
+	visibleTasks: [],
+	tasks: []
+}
+
 export default class TaskList extends Component {
 
-	state = {
-		showDoneTasks: true,
-		showAddTask: false,
-		visibleTasks: [],
-		tasks: [
-			{
-				id: Math.random(),
-				desc: 'Comprar Livro',
-				estimateAt: new Date(),
-				doneAt: new Date(),
-			},
-			{
-				id: Math.random(),
-				desc: 'Ler Livro',
-				estimateAt: new Date(),
-				doneAt: null,
-			},
-		]
-	}
+	state ={...initialState}
 
-	componentDidMount() {
-		this.filterTasks()
+	componentDidMount = async () => {
+		const stateString = await AsyncStorage.getItem('taskState')
+		const state = JSON.parse(stateString) || initialState
+		this.setState(state, this.filterTasks);
 	}
 
 	toggleFilter = () => {
@@ -62,6 +54,7 @@ export default class TaskList extends Component {
 		}
 
 		this.setState({ visibleTasks });
+		AsyncStorage.setItem('taskState', JSON.stringify(this.state))
 	}
 
 	toggleTask = taskId => {
@@ -92,6 +85,11 @@ export default class TaskList extends Component {
 		this.setState({ tasks, showAddTask: false }, this.filterTasks)
 	}
 
+	deleteTask = id => {
+		const tasks = this.state.tasks.filter(task => task.id !== id)
+		this.setState({ tasks }, this.filterTasks)
+	}
+
 	render() {
 		const today = moment().locale('pt-br').format('ddd, D [de] MMMM');
 		return (
@@ -112,7 +110,7 @@ export default class TaskList extends Component {
 					<FlatList
 						data={this.state.visibleTasks}
 						keyExtractor={item => `${item.id}`}
-						renderItem={({ item }) => <Task {...item} toggleTask={this.toggleTask} />} />
+						renderItem={({ item }) => <Task {...item} toggleTask={this.toggleTask} onDelete={this.deleteTask} />} />
 				</View>
 				<TouchableOpacity
 					style={styles.addButton}
